@@ -1,34 +1,15 @@
+import User from "@/components/user/user";
+
 export default function Home() {
   return (
-    <main
-      style={{
-        minHeight: "100vh",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <h1
-        style={{
-          fontSize: "2rem",
-          fontWeight: 700,
-          marginBottom: 12,
-          letterSpacing: "-0.01em",
-        }}
-      >
+    <div className="flex flex-col items-center justify-center min-h-screen gap-4">
+      <h1 className="text-center text-4xl max-w-2xl font-bold">
         Next.js + Supabase + Typescript
       </h1>
-      <p
-        style={{
-          fontSize: "1.1rem",
-          color: "#666",
-          textAlign: "center",
-          maxWidth: 400,
-        }}
-      >
+      <p className="text-center text-2xl max-w-2xl text-gray-600">
         Boilerplate for NextJs with Supabase and Typescript
       </p>
-    </main>
+      <User />
+    </div>
   );
 }
