@@ -1,5 +1,6 @@
 "use client";
 import { signup } from "@/app/actions/auth-actions";
+import ActionButton from "@/templates/actionButton/actionButton";
 import React, { useState } from "react";
 
 export default function SignupPage() {
@@ -79,21 +80,9 @@ export default function SignupPage() {
         />
 
         {error && <div style={{ color: "red", marginBottom: 16 }}>{error}</div>}
-        <button
-          type="submit"
-          style={{
-            width: "100%",
-            padding: 10,
-            borderRadius: 4,
-            background: "#6366f1",
-            color: "#fff",
-            border: "none",
-            fontWeight: "bold",
-          }}
-          disabled={loading}
-        >
+        <ActionButton type="submit" disabled={loading} className="w-full">
           {loading ? "Signing up..." : "Sign Up"}
-        </button>
+        </ActionButton>
       </form>
     </div>
   );

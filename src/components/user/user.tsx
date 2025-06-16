@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { getSupabaseBrowserClient } from "@/utils/supabase/browserClient";
+import ActionButton from "@/templates/actionButton/actionButton";
 
 export default function User() {
   // Replace with real authentication logic
@@ -59,15 +60,10 @@ export default function User() {
   if (userId) {
     return (
       <div style={{ display: "flex", gap: 12 }}>
-        <button className="px-4 py-2 border border-indigo-600 bg-indigo-600 text-white rounded-md cursor-pointer hover:bg-indigo-700 hover:border-indigo-700 transition-colors">
-          Profile
-        </button>
-        <button
-          className="px-4 py-2 border border-indigo-600 bg-indigo-600 text-white rounded-md cursor-pointer hover:bg-indigo-700 hover:border-indigo-700 transition-colors"
-          onClick={handleLogout}
-        >
+        <ActionButton>Profile</ActionButton>
+        <ActionButton variant="gray" onClick={handleLogout}>
           Logout
-        </button>
+        </ActionButton>
         {logoutError && (
           <div className="text-red-600 text-sm mt-2">{logoutError}</div>
         )}
@@ -76,11 +72,8 @@ export default function User() {
   }
 
   return (
-    <Link
-      href="/auth/login"
-      className="px-4 py-2 border border-indigo-600 bg-indigo-600 text-white rounded-md cursor-pointer hover:bg-indigo-700 hover:border-indigo-700 transition-colors"
-    >
-      Login
+    <Link href="/auth/login">
+      <ActionButton>Login</ActionButton>
     </Link>
   );
 }

@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { login } from "@/app/actions/auth-actions";
+import ActionButton from "@/templates/actionButton/actionButton";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -81,21 +82,9 @@ export default function LoginPage() {
         />
 
         {error && <div style={{ color: "red", marginBottom: 16 }}>{error}</div>}
-        <button
-          type="submit"
-          style={{
-            width: "100%",
-            padding: 10,
-            borderRadius: 4,
-            background: "#6366f1",
-            color: "#fff",
-            border: "none",
-            fontWeight: "bold",
-          }}
-          disabled={loading}
-        >
+        <ActionButton type="submit" disabled={loading} className="w-full">
           {loading ? "Logging in..." : "Login"}
-        </button>
+        </ActionButton>
       </form>
       <div style={{ textAlign: "center", marginTop: 16 }}>
         <span>Don't have an account? </span>
