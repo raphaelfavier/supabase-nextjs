@@ -1,4 +1,5 @@
 "use client";
+import { signup } from "@/app/actions/auth-actions";
 import React, { useState } from "react";
 
 export default function SignupPage() {
@@ -11,16 +12,21 @@ export default function SignupPage() {
     e.preventDefault();
     setError("");
     setLoading(true);
-    // Placeholder: Add signup logic here
-    setTimeout(() => {
-      setLoading(false);
-      if (!email || !password) {
-        setError("Please enter both email and password.");
+
+    if (!email || !password) {
+      setError("Please enter both email and password.");
+    } else {
+      const formData = new FormData();
+      formData.append("email", email);
+      formData.append("password", password);
+      const { error } = await signup(formData);
+      if (error) {
+        setError(error);
       } else {
-        // Simulate successful signup
-        alert("Signed up (simulation)");
+        alert("Signed up, please check your email");
       }
-    }, 800);
+      setLoading(false);
+    }
   };
 
   return (
