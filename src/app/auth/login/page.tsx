@@ -4,12 +4,14 @@ import Link from "next/link";
 import { login } from "@/app/actions/auth-actions";
 import ActionButton from "@/templates/actionButton/actionButton";
 import FormField from "@/templates/formField/FormField";
+import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -24,7 +26,8 @@ export default function LoginPage() {
       if (error) {
         setError(error);
       } else {
-        alert("Logged in");
+        // logged in!
+        router.replace("/");
       }
     }
     setLoading(false);

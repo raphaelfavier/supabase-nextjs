@@ -1,7 +1,6 @@
 "use server";
 
 import { getSupabaseCookiesUtilClient } from "@/utils/supabase/cookiesUtilClient";
-import { redirect } from "next/navigation";
 
 import { authSchema } from "@/schemas/authSchemas";
 import type { AuthType } from "@/types/authTypes";
@@ -56,5 +55,7 @@ export async function login(formData: AuthType) {
     };
   }
 
-  redirect("/");
+  return {
+    success: true,
+  };
 }
