@@ -15,6 +15,13 @@ export async function middleware(request: NextRequest) {
     if (requestedPath.startsWith("/profile")) {
       return NextResponse.redirect(new URL("/auth/login", request.url));
     }
+  } else {
+    if (
+      requestedPath.startsWith("/auth/login") ||
+      requestedPath.startsWith("/auth/signup")
+    ) {
+      return NextResponse.redirect(new URL("/", request.url));
+    }
   }
   return response.value;
 }
