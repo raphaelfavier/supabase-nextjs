@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ProfileType } from "@/types/profileTypes";
 import ActionButton from "@/templates/actionButton/actionButton";
+import FormField from "@/templates/formField/FormField";
 
 export default function Profile() {
   const [user, setUser] = useState<(ProfileType & { email?: string }) | null>(
@@ -76,15 +77,38 @@ export default function Profile() {
 
   if (loading)
     return (
-      <div className="max-w-xl mx-auto mt-8 p-6 border rounded-lg shadow animate-pulse">
-        <div className="h-7 w-32 bg-gray-200 rounded mb-6" />
-        <div className="space-y-6">
-          <div className="h-5 w-56 bg-gray-200 rounded" />
-          <div className="h-10 w-full bg-gray-200 rounded" />
-          <div className="h-10 w-full bg-gray-200 rounded" />
-          <div className="h-10 w-full bg-gray-200 rounded" />
-          <div className="h-10 w-full bg-gray-200 rounded" />
-          <div className="h-10 w-1/2 bg-gray-200 rounded" />
+      <div className="sm:w-[400px] w-full mx-auto mt-8 p-6 border rounded-lg shadow animate-pulse">
+        <div className="h-8 w-32 bg-gray-200 rounded mb-6" /> {/* Title */}
+        <div className="space-y-4">
+          {/* Email (disabled) */}
+          <div>
+            <div className="h-5 w-20 bg-gray-200 rounded mb-2" />
+            <div className="h-10 w-full bg-gray-100 rounded" />
+          </div>
+          {/* Username */}
+          <div>
+            <div className="h-5 w-20 bg-gray-200 rounded mb-2" />
+            <div className="h-10 w-full bg-gray-200 rounded" />
+          </div>
+          {/* Full Name */}
+          <div>
+            <div className="h-5 w-20 bg-gray-200 rounded mb-2" />
+            <div className="h-10 w-full bg-gray-200 rounded" />
+          </div>
+          {/* Avatar URL */}
+          <div>
+            <div className="h-5 w-24 bg-gray-200 rounded mb-2" />
+            <div className="h-10 w-full bg-gray-200 rounded" />
+          </div>
+          {/* Website */}
+          <div>
+            <div className="h-5 w-20 bg-gray-200 rounded mb-2" />
+            <div className="h-10 w-full bg-gray-200 rounded" />
+          </div>
+          {/* Button */}
+          <div className="flex justify-end">
+            <div className="h-10 w-32 bg-gray-300 rounded" />
+          </div>
         </div>
       </div>
     );
@@ -122,7 +146,7 @@ export default function Profile() {
   };
 
   return (
-    <div className="max-w-xl mx-auto mt-8 p-6 border rounded-lg shadow">
+    <div className="sm:w-[400px] w-full mx-auto mt-8 p-6 border rounded-lg shadow">
       <h2 className="text-2xl font-bold mb-4">Profile</h2>
       <form className="flex flex-col space-y-4" onSubmit={handleSubmit}>
         <div>
@@ -134,71 +158,38 @@ export default function Profile() {
             className="w-full px-3 py-2 border rounded bg-gray-100 cursor-not-allowed"
           />
         </div>
-        <div>
-          <label
-            className="block text-sm font-semibold mb-1"
-            htmlFor="username"
-          >
-            Username
-          </label>
-          <input
-            type="text"
-            id="username"
-            name="username"
-            value={form.username}
-            onChange={handleChange}
-            className="w-full px-3 py-2 border rounded"
-            autoComplete="username"
-          />
-        </div>
-        <div>
-          <label
-            className="block text-sm font-semibold mb-1"
-            htmlFor="full_name"
-          >
-            Full Name
-          </label>
-          <input
-            type="text"
-            id="full_name"
-            name="full_name"
-            value={form.full_name}
-            onChange={handleChange}
-            className="w-full px-3 py-2 border rounded"
-            autoComplete="name"
-          />
-        </div>
-        <div>
-          <label
-            className="block text-sm font-semibold mb-1"
-            htmlFor="avatar_url"
-          >
-            Avatar URL
-          </label>
-          <input
-            type="url"
-            id="avatar_url"
-            name="avatar_url"
-            value={form.avatar_url}
-            onChange={handleChange}
-            className="w-full px-3 py-2 border rounded"
-            autoComplete="url"
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-semibold mb-1" htmlFor="website">
-            Website
-          </label>
-          <input
-            type="url"
-            id="website"
-            name="website"
-            value={form.website}
-            onChange={handleChange}
-            className="w-full px-3 py-2 border rounded"
-            autoComplete="url"
-          />
-        </div>
+        <FormField
+          label="Username"
+          name="username"
+          type="text"
+          value={form.username}
+          onChange={handleChange}
+          autoComplete="username"
+        />
+        <FormField
+          label="Full Name"
+          name="full_name"
+          type="text"
+          value={form.full_name}
+          onChange={handleChange}
+          autoComplete="name"
+        />
+        <FormField
+          label="Avatar URL"
+          name="avatar_url"
+          type="url"
+          value={form.avatar_url}
+          onChange={handleChange}
+          autoComplete="url"
+        />
+        <FormField
+          label="Website"
+          name="website"
+          type="url"
+          value={form.website}
+          onChange={handleChange}
+          autoComplete="url"
+        />
         {formError && <div className="text-red-600 text-sm">{formError}</div>}
         {formSuccess && (
           <div className="text-green-600 text-sm">{formSuccess}</div>

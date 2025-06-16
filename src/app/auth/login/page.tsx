@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { login } from "@/app/actions/auth-actions";
 import ActionButton from "@/templates/actionButton/actionButton";
+import FormField from "@/templates/formField/FormField";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -30,51 +31,27 @@ export default function LoginPage() {
   };
 
   return (
-    <div
-      style={{
-        maxWidth: 400,
-        margin: "60px auto",
-        padding: 24,
-        border: "1px solid #eee",
-        borderRadius: 8,
-        boxShadow: "0 2px 8px #eee",
-      }}
-    >
-      <h2 style={{ textAlign: "center" }}>Login</h2>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="email" style={{ display: "block", marginBottom: 8 }}>
-          Email
-        </label>
-        <input
-          id="email"
+    <div className="flex flex-col items-center sm:w-[400px] w-full mx-auto mt-8 p-6 border rounded-lg shadow">
+      <h2 className="text-2xl font-bold mb-4">Login</h2>
+      <form onSubmit={handleSubmit} className="w-full flex flex-col gap-4">
+        <FormField
+          label="Email"
+          name="email"
           type="email"
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          style={{
-            width: "100%",
-            padding: 8,
-            marginBottom: 16,
-            borderRadius: 4,
-            border: "1px solid #ccc",
-          }}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setEmail(e.target.value)
+          }
           autoComplete="email"
         />
-
-        <label htmlFor="password" style={{ display: "block", marginBottom: 8 }}>
-          Password
-        </label>
-        <input
-          id="password"
+        <FormField
+          label="Password"
+          name="password"
           type="password"
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          style={{
-            width: "100%",
-            padding: 8,
-            marginBottom: 16,
-            borderRadius: 4,
-            border: "1px solid #ccc",
-          }}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setPassword(e.target.value)
+          }
           autoComplete="current-password"
         />
 
