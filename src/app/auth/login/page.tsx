@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Link from "next/link";
+import { login } from "@/app/actions/auth-actions";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -13,15 +14,21 @@ export default function LoginPage() {
     setError("");
     setLoading(true);
     // Placeholder: Add authentication logic here
-    setTimeout(() => {
-      setLoading(false);
-      if (!email || !password) {
-        setError("Please enter both email and password.");
+
+    if (!email || !password) {
+      setError("Please enter both email and password.");
+    } else {
+      const formData = new FormData();
+      formData.append("email", email);
+      formData.append("password", password);
+      const { error } = await login(formData);
+      if (error) {
+        setError(error);
       } else {
-        // Simulate successful login
-        alert("Logged in (simulation)");
+        alert("Logged in");
       }
-    }, 800);
+    }
+    setLoading(false);
   };
 
   return (
@@ -92,7 +99,10 @@ export default function LoginPage() {
       </form>
       <div style={{ textAlign: "center", marginTop: 16 }}>
         <span>Don't have an account? </span>
-        <Link href="/auth/signup" style={{ color: "#6366f1", textDecoration: "underline" }}>
+        <Link
+          href="/auth/signup"
+          style={{ color: "#6366f1", textDecoration: "underline" }}
+        >
           Sign up
         </Link>
       </div>
