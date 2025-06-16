@@ -61,7 +61,7 @@ export default function LoginPage() {
         </ActionButton>
       </form>
       <div style={{ textAlign: "center", marginTop: 16 }}>
-        <span>Don't have an account? </span>
+        <span>Don&apos;t have an account? </span>
         <Link
           href="/auth/signup"
           style={{ color: "#6366f1", textDecoration: "underline" }}

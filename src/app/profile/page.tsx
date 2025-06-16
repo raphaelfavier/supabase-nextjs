@@ -41,8 +41,15 @@ export default function Profile() {
         }
 
         setUser(data);
-      } catch (err: any) {
-        setError(err.message || "Unknown error");
+      } catch (err: unknown) {
+        // Safely check if err is an Error
+        const message =
+          err instanceof Error
+            ? err.message
+            : typeof err === "string"
+            ? err
+            : "Unexpected error";
+        setError(message);
       } finally {
         setLoading(false);
       }
@@ -138,8 +145,15 @@ export default function Profile() {
         setFormSuccess("Profile updated successfully!");
         setUser((prev) => ({ ...prev!, ...form }));
       }
-    } catch (err: any) {
-      setFormError(err.message || "Unknown error");
+    } catch (err: unknown) {
+      // Safely check if err is an Error
+      const message =
+        err instanceof Error
+          ? err.message
+          : typeof err === "string"
+          ? err
+          : "Unexpected error";
+      setFormError(message);
     } finally {
       setFormLoading(false);
     }

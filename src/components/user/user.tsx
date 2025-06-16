@@ -24,7 +24,7 @@ export default function User() {
         } else {
           setUserId(null);
         }
-      } catch (error) {
+      } catch {
         setUserId(null);
       } finally {
         setLoading(false);
@@ -47,8 +47,15 @@ export default function User() {
       }
       // Revalidate client: reload the page to update user state and cookies
       window.location.reload();
-    } catch (error: any) {
-      setLogoutError(error.message || "An error occurred during logout.");
+    } catch (err: unknown) {
+      // Safely check if err is an Error
+      const message =
+        err instanceof Error
+          ? err.message
+          : typeof err === "string"
+          ? err
+          : "Unexpected error";
+      setLogoutError(message);
     }
   };
 

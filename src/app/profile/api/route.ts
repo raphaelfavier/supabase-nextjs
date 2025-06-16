@@ -41,11 +41,15 @@ export async function GET() {
       { ...parsed.data, email: user.user.email },
       { status: 200 }
     );
-  } catch (err: any) {
-    return NextResponse.json(
-      { error: err.message || "Unexpected error" },
-      { status: 500 }
-    );
+  } catch (err: unknown) {
+    // Safely check if err is an Error
+    const message =
+      err instanceof Error
+        ? err.message
+        : typeof err === "string"
+        ? err
+        : "Unexpected error";
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }
 
@@ -61,10 +65,10 @@ export async function POST(request: NextRequest) {
     }
 
     // Parse and validate body
-    let body: any;
+    let body: unknown;
     try {
       body = await request.json();
-    } catch (e) {
+    } catch {
       return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 });
     }
     // Validate with zod
@@ -94,10 +98,14 @@ export async function POST(request: NextRequest) {
       { profile, message: profile ? undefined : "No changes made" },
       { status: 200 }
     );
-  } catch (err: any) {
-    return NextResponse.json(
-      { error: err.message || "Unexpected error" },
-      { status: 500 }
-    );
+  } catch (err: unknown) {
+    // Safely check if err is an Error
+    const message =
+      err instanceof Error
+        ? err.message
+        : typeof err === "string"
+        ? err
+        : "Unexpected error";
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }
