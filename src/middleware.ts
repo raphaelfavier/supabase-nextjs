@@ -1,4 +1,4 @@
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { getSupabaseReqResClient } from "@/utils/supabase/reqResClient";
 
 export async function middleware(request: NextRequest) {
@@ -11,6 +11,11 @@ export async function middleware(request: NextRequest) {
   } = await supabase.auth.getUser();
   const requestedPath = request.nextUrl.pathname;
 
+  if (!user) {
+    if (requestedPath.startsWith("/profile")) {
+      return NextResponse.redirect(new URL("/auth/login", request.url));
+    }
+  }
   return response.value;
 }
 
