@@ -58,16 +58,16 @@ export default function LoginPage() {
           autoComplete="current-password"
         />
 
-        {error && <div style={{ color: "red", marginBottom: 16 }}>{error}</div>}
+        {error && <div className="text-red-500 mb-4">{error}</div>}
         <ActionButton type="submit" disabled={loading} className="w-full">
           {loading ? "Logging in..." : "Login"}
         </ActionButton>
       </form>
-      <div style={{ textAlign: "center", marginTop: 16 }}>
+      <div className="text-center mt-4">
         <span>Don&apos;t have an account? </span>
         <Link
           href="/auth/signup"
-          style={{ color: "#6366f1", textDecoration: "underline" }}
+          className="text-indigo-500 underline hover:text-indigo-700"
         >
           Sign up
         </Link>

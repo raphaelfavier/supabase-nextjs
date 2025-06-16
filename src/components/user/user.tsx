@@ -65,7 +65,7 @@ export default function User() {
 
   if (userId) {
     return (
-      <div style={{ display: "flex", gap: 12 }}>
+      <div className="flex gap-2">
         <Link href="/profile">
           <ActionButton>Profile</ActionButton>
         </Link>
