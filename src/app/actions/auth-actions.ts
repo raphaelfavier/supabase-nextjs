@@ -3,21 +3,23 @@
 import { getSupabaseCookiesUtilClient } from "@/utils/supabase/cookiesUtilClient";
 import { redirect } from "next/navigation";
 
-export async function signup(formData: FormData) {
-  const email = formData.get("email") as string;
-  const password = formData.get("password") as string;
+import { authSchema } from "@/schemas/authSchemas";
+import type { AuthType } from "@/types/authTypes";
 
-  if (!email || !password) {
+export async function signup(formData: AuthType) {
+  const parsed = authSchema.safeParse(formData);
+  if (!parsed.success) {
     return {
-      error: "Email and password are required",
+      error: parsed.error.errors[0]?.message || "Invalid input",
     };
   }
+  const { email: validEmail, password: validPassword } = parsed.data;
 
   const supabase = await getSupabaseCookiesUtilClient();
 
   const { error } = await supabase.auth.signUp({
-    email,
-    password,
+    email: validEmail,
+    password: validPassword,
   });
 
   if (error) {
@@ -32,21 +34,20 @@ export async function signup(formData: FormData) {
   };
 }
 
-export async function login(formData: FormData) {
-  const email = formData.get("email") as string;
-  const password = formData.get("password") as string;
-
-  if (!email || !password) {
+export async function login(formData: AuthType) {
+  const parsed = authSchema.safeParse(formData);
+  if (!parsed.success) {
     return {
-      error: "Email and password are required",
+      error: parsed.error.errors[0]?.message || "Invalid input",
     };
   }
+  const { email: validEmail, password: validPassword } = parsed.data;
 
   const supabase = await getSupabaseCookiesUtilClient();
 
   const { error } = await supabase.auth.signInWithPassword({
-    email,
-    password,
+    email: validEmail,
+    password: validPassword,
   });
 
   if (error) {
