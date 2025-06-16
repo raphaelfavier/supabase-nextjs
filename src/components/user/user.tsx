@@ -25,7 +25,6 @@ export default function User() {
           setUserId(null);
         }
       } catch (error) {
-        console.error("Error getting user ID:", error);
         setUserId(null);
       } finally {
         setLoading(false);
@@ -60,7 +59,9 @@ export default function User() {
   if (userId) {
     return (
       <div style={{ display: "flex", gap: 12 }}>
-        <ActionButton>Profile</ActionButton>
+        <Link href="/profile">
+          <ActionButton>Profile</ActionButton>
+        </Link>
         <ActionButton variant="gray" onClick={handleLogout}>
           Logout
         </ActionButton>
