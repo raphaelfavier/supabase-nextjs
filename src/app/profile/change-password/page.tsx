@@ -48,7 +48,17 @@ export default function ChangePasswordPage() {
           disabled={loading}
         />
         {error && <div className="text-red-500 mb-2">{error}</div>}
-        {success && <div className="text-green-600 mb-2">{success}</div>}
+        {success && (
+          <>
+            <div className="text-green-600 mb-2">{success}</div>
+            <a
+              href="/"
+              className="block text-indigo-500 underline hover:text-indigo-700 mb-2 text-center"
+            >
+              Go to home
+            </a>
+          </>
+        )}
         <ActionButton
           type="submit"
           disabled={loading || !password}

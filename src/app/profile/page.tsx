@@ -162,7 +162,7 @@ export default function Profile() {
   return (
     <div className="sm:w-[400px] w-full mx-auto mt-8 p-6 border rounded-lg shadow">
       <h2 className="text-2xl font-bold mb-4">Profile</h2>
-      <form className="flex flex-col space-y-4" onSubmit={handleSubmit}>
+      <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
         <div>
           <label className="block text-sm font-semibold mb-1">Email</label>
           <input
@@ -213,6 +213,14 @@ export default function Profile() {
           {formLoading ? "Saving..." : "Save Changes"}
         </ActionButton>
       </form>
+      <div className="text-left mt-6 w-full border-t border-t-gray-300 pt-4 text-sm">
+        <a
+          href="/auth/reset-password"
+          className="text-indigo-500 underline hover:text-indigo-700"
+        >
+          Reset my password
+        </a>
+      </div>
     </div>
   );
 }

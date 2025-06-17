@@ -64,6 +64,14 @@ export default function LoginPage() {
         </ActionButton>
       </form>
       <div className="text-center mt-4">
+        <Link
+          href="/auth/reset-password"
+          className="text-indigo-500 underline hover:text-indigo-700"
+        >
+          Forgot your password?
+        </Link>
+      </div>
+      <div className="text-center mt-4">
         <span>Don&apos;t have an account? </span>
         <Link
           href="/auth/signup"
