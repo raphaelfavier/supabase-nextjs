@@ -1,16 +1,15 @@
 "use client";
 
 import { useState } from "react";
-import { getSupabaseBrowserClient } from "@/utils/supabase/browserClient";
 import FormField from "@/templates/formField/FormField";
 import ActionButton from "@/templates/actionButton/actionButton";
+import { changePassword } from "@/app/actions/auth-actions";
 
 export default function ChangePasswordPage() {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-  const supabase = getSupabaseBrowserClient();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -23,9 +22,9 @@ export default function ChangePasswordPage() {
       setLoading(false);
       return;
     }
-    const { error } = await supabase.auth.updateUser({ password: value });
+    const { error } = await changePassword({ password: value });
     if (error) {
-      setError(error.message);
+      setError(error);
     } else {
       setSuccess("Password updated!");
       setPassword("");
@@ -42,13 +41,19 @@ export default function ChangePasswordPage() {
           name="password"
           type="password"
           value={password}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setPassword(e.target.value)
+          }
           autoComplete="new-password"
           disabled={loading}
         />
         {error && <div className="text-red-500 mb-2">{error}</div>}
         {success && <div className="text-green-600 mb-2">{success}</div>}
-        <ActionButton type="submit" disabled={loading || !password} className="w-full">
+        <ActionButton
+          type="submit"
+          disabled={loading || !password}
+          className="w-full"
+        >
           {loading ? "Updating..." : "Reset Password"}
         </ActionButton>
       </form>
