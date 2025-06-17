@@ -1,42 +1,21 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import FormField from "@/templates/formField/FormField";
 import ActionButton from "@/templates/actionButton/actionButton";
 import { changePassword } from "@/app/actions/auth-actions";
 import Link from "next/link";
-import { getSupabaseBrowserClient } from "@/utils/supabase/browserClient";
+import { useUser } from "@/hooks/useUser";
 
 export default function ChangePasswordPage() {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-  const [email, setEmail] = useState("");
 
-  useEffect(() => {
-    async function getUserEmail() {
-      try {
-        setLoading(true);
-        const supabase = getSupabaseBrowserClient();
-        const {
-          data: { user },
-        } = await supabase.auth.getUser();
+  const { user, loading: userLoading } = useUser();
 
-        if (user) {
-          setEmail(user.email || "");
-        } else {
-          setEmail("");
-        }
-      } catch {
-        setEmail("");
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    getUserEmail();
-  }, []);
+  const email = user?.email || "";
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -68,11 +47,9 @@ export default function ChangePasswordPage() {
           name="email"
           type="email"
           value={email}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setEmail(e.target.value)
-          }
+          onChange={() => {}}
           autoComplete="username"
-          disabled={loading}
+          disabled={loading || userLoading}
           readOnly
         />
 

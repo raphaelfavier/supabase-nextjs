@@ -1,38 +1,16 @@
 "use client";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { getSupabaseBrowserClient } from "@/utils/supabase/browserClient";
+import { useState } from "react";
 import ActionButton from "@/templates/actionButton/actionButton";
+import { useUser } from "@/hooks/useUser";
 
 export default function User() {
   // Replace with real authentication logic
-  const [loading, setLoading] = useState(true);
-  const [userId, setUserId] = useState<string | null>(null);
   const [logoutError, setLogoutError] = useState<string | null>(null);
 
-  useEffect(() => {
-    async function getUserId() {
-      try {
-        setLoading(true);
-        const supabase = getSupabaseBrowserClient();
-        const {
-          data: { user },
-        } = await supabase.auth.getUser();
+  const { user, loading } = useUser();
 
-        if (user) {
-          setUserId(user.id);
-        } else {
-          setUserId(null);
-        }
-      } catch {
-        setUserId(null);
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    getUserId();
-  }, []);
+  const userId = user?.id || null;
 
   const handleLogout = async () => {
     setLogoutError(null);
