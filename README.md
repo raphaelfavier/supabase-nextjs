@@ -1,11 +1,30 @@
 # Next.js + Supabase Profile Management Starter
 
-A modern starter template for building authenticated user profile management apps with Next.js 13+, Supabase, and TypeScript. Includes:
+A modern starter template for building authenticated user profile management apps with Next.js 15+, Supabase, TypeScript, Tailwind and Zod.
 
-- Full authentication and protected routes
-- Editable user profiles (username, full name, avatar, website)
+## Tech Stack:
+
+- **Next.js 15**, for the frontend
+- **Supabase**, for the backend
+- **TypeScript**, for type safety
+- **Tailwind CSS**, for styling
+- **Zod**, for validation
+
+## Features:
+
+- Full authentication
+  - User signup
+    - with password _(uses server action)_
+    - with magic link _(uses server route)_
+  - User login
+    - with password _(uses server action)_
+    - with magic link _(uses server route)_
+  - Email verification _(uses server route)_
+  - Password recovery _(uses server route)_
+  - Password change _(uses server action)_
+- User profile management (username, full name, avatar, website)
+- Protected routes via middleware (anything under `/profile` requires authentication)
 - Zod validation and robust error handling
-- Tailwind CSS UI and loading skeletons
 
 ---
 
