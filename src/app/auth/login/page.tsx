@@ -11,27 +11,58 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [useMagicLink, setUseMagicLink] = useState(false);
+  const [success, setSuccess] = useState("");
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
+    setSuccess("");
     setLoading(true);
-    // Placeholder: Add authentication logic here
 
-    if (!email || !password) {
-      setError("Please enter both email and password.");
-    } else {
-      const { error } = await login({ email, password });
-      if (error) {
-        setError(error);
-      } else {
-        // logged in!
-        router.replace("/");
+    if (!email) {
+      setError("Please enter your email.");
+      setLoading(false);
+      return;
+    }
+
+    if (useMagicLink) {
+      // Call magic-link API
+      try {
+        const res = await fetch("/auth/magic-link", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, type: "magiclink" }),
+        });
+        const data = await res.json();
+        if (!res.ok || data.error) {
+          setError(data.error || "Failed to send magic link.");
+        } else {
+          setSuccess("Magic link sent! Check your email.");
+        }
+      } catch (err) {
+        setError("Failed to send magic link.");
       }
+      setLoading(false);
+      return;
+    }
+
+    if (!password) {
+      setError("Please enter both email and password.");
+      setLoading(false);
+      return;
+    }
+
+    const { error } = await login({ email, password });
+    if (error) {
+      setError(error);
+    } else {
+      router.replace("/");
     }
     setLoading(false);
   };
+
 
   return (
     <div className="flex flex-col items-center sm:w-[400px] w-full mx-auto mt-8 p-6 border rounded-lg shadow">
@@ -47,6 +78,18 @@ export default function LoginPage() {
           }
           autoComplete="email"
         />
+        <div className="flex items-center gap-2 mb-2">
+          <input
+            id="use-magic-link"
+            type="checkbox"
+            checked={useMagicLink}
+            onChange={() => setUseMagicLink((v) => !v)}
+            className="accent-indigo-500"
+          />
+          <label htmlFor="use-magic-link" className="text-sm cursor-pointer">
+            Use magic link
+          </label>
+        </div>
         <FormField
           label="Password"
           name="password"
@@ -56,11 +99,18 @@ export default function LoginPage() {
             setPassword(e.target.value)
           }
           autoComplete="current-password"
+          disabled={useMagicLink}
         />
-
         {error && <div className="text-red-500 mb-4">{error}</div>}
+        {success && <div className="text-green-600 mb-4">{success}</div>}
         <ActionButton type="submit" disabled={loading} className="w-full">
-          {loading ? "Logging in..." : "Login"}
+          {loading
+            ? useMagicLink
+              ? "Sending..."
+              : "Logging in..."
+            : useMagicLink
+            ? "Send magic link"
+            : "Login"}
         </ActionButton>
       </form>
       <div className="text-center mt-4">
