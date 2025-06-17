@@ -1,6 +1,7 @@
 # Next.js + Supabase Profile Management Starter
 
 A modern starter template for building authenticated user profile management apps with Next.js 13+, Supabase, and TypeScript. Includes:
+
 - Full authentication and protected routes
 - Editable user profiles (username, full name, avatar, website)
 - Zod validation and robust error handling
@@ -22,23 +23,29 @@ A modern starter template for building authenticated user profile management app
    bun install
    ```
 
-2. **Create your environment file:**
+2. **Create an initialize your Supabase project:**
+
+   - Go to [Supabase](https://supabase.com/)
+   - Create a new project
+   - Run the migration file present in the `supabase/migrations` directory
+
+3. **Create your environment file:**
 
    Copy the following template into a new file called `.env.local` in the root of your project, and fill in your Supabase credentials:
 
    ```env
    NEXT_PUBLIC_SUPABASE_URL=your-supabase-project-url
    NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key
-   SUPABASE_SERVICE_ROLE_KEY=your-supabase-service-role-key  # (if you use server-side admin features)
+   NEXT_PUBLIC_SITE_URL=your-site-url  # (if you use server-side admin features)
    ```
 
    - `NEXT_PUBLIC_SUPABASE_URL`: The URL of your Supabase project (from the Supabase dashboard)
    - `NEXT_PUBLIC_SUPABASE_ANON_KEY`: The public anon key for client-side access
-   - `SUPABASE_SERVICE_ROLE_KEY`: (Optional) Service role key for privileged server-side operations
+   - `NEXT_PUBLIC_SITE_URL`: (Optional) The URL of your site for redirecting after authentication
 
    You can find these values in your Supabase project dashboard under Project Settings > API.
 
-3. **Run the development server:**
+4. **Run the development server:**
 
    ```bash
    yarn dev
