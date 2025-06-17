@@ -1,16 +1,42 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import FormField from "@/templates/formField/FormField";
 import ActionButton from "@/templates/actionButton/actionButton";
 import { changePassword } from "@/app/actions/auth-actions";
 import Link from "next/link";
+import { getSupabaseBrowserClient } from "@/utils/supabase/browserClient";
 
 export default function ChangePasswordPage() {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const [email, setEmail] = useState("");
+
+  useEffect(() => {
+    async function getUserEmail() {
+      try {
+        setLoading(true);
+        const supabase = getSupabaseBrowserClient();
+        const {
+          data: { user },
+        } = await supabase.auth.getUser();
+
+        if (user) {
+          setEmail(user.email || "");
+        } else {
+          setEmail("");
+        }
+      } catch {
+        setEmail("");
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    getUserEmail();
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -34,9 +60,22 @@ export default function ChangePasswordPage() {
   };
 
   return (
-    <div className="max-w-md mx-auto p-6 bg-white rounded shadow">
+    <div className="sm:w-[400px] w-full mx-auto p-6 bg-white rounded shadow">
       <h2 className="text-xl font-semibold mb-4">Change Password</h2>
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+        <FormField
+          label="Email"
+          name="email"
+          type="email"
+          value={email}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setEmail(e.target.value)
+          }
+          autoComplete="username"
+          disabled={loading}
+          readOnly
+        />
+
         <FormField
           label="New Password"
           name="password"
