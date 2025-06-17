@@ -215,10 +215,10 @@ export default function Profile() {
       </form>
       <div className="text-left mt-6 w-full border-t border-t-gray-300 pt-4 text-sm">
         <a
-          href="/auth/reset-password"
+          href="/profile/change-password"
           className="text-indigo-500 underline hover:text-indigo-700"
         >
-          Reset my password
+          Change my password
         </a>
       </div>
     </div>
