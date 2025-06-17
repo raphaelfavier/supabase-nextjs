@@ -28,7 +28,9 @@ export async function GET(request: NextRequest) {
     );
   } else {
     if (isRecovery) {
-      return NextResponse.redirect(new URL("/", request.url));
+      return NextResponse.redirect(
+        new URL("/profile/change-password", request.url)
+      );
     } else {
       return NextResponse.redirect(new URL("/", request.url));
     }
