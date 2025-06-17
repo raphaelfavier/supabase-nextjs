@@ -46,7 +46,7 @@ A modern starter template for building authenticated user profile management app
 
    - Go to [Supabase](https://supabase.com/)
    - Create a new project
-   - Run the migration file present in the `supabase/migrations` directory
+   - Run the migration file present in the `supabase/migrations` directory using the `SQL Editor`
 
 3. **Create your environment file:**
 
@@ -55,14 +55,12 @@ A modern starter template for building authenticated user profile management app
    ```env
    NEXT_PUBLIC_SUPABASE_URL=your-supabase-project-url
    NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key
-   NEXT_PUBLIC_SITE_URL=your-site-url  # (if you use server-side admin features)
+   NEXT_PUBLIC_SITE_URL=your-site-url
    ```
 
-   - `NEXT_PUBLIC_SUPABASE_URL`: The URL of your Supabase project (from the Supabase dashboard)
-   - `NEXT_PUBLIC_SUPABASE_ANON_KEY`: The public anon key for client-side access
-   - `NEXT_PUBLIC_SITE_URL`: (Optional) The URL of your site for redirecting after authentication
-
-   You can find these values in your Supabase project dashboard under Project Settings > API.
+   - `NEXT_PUBLIC_SUPABASE_URL`: The URL of your Supabase project (from the Supabase dashboard, under Project Settings > Data API)
+   - `NEXT_PUBLIC_SUPABASE_ANON_KEY`: The public anon key for client-side access (from the Supabase dashboard, under Project Settings > API Keys)
+   - `NEXT_PUBLIC_SITE_URL`: The URL of your site for redirecting after authentication (e.g. `https://localhost:3000` for local development)
 
 4. **Run the development server:**
 
