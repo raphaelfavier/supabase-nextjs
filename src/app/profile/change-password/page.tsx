@@ -4,6 +4,7 @@ import { useState } from "react";
 import FormField from "@/templates/formField/FormField";
 import ActionButton from "@/templates/actionButton/actionButton";
 import { changePassword } from "@/app/actions/auth-actions";
+import Link from "next/link";
 
 export default function ChangePasswordPage() {
   const [password, setPassword] = useState("");
@@ -51,12 +52,12 @@ export default function ChangePasswordPage() {
         {success && (
           <>
             <div className="text-green-600 mb-2">{success}</div>
-            <a
+            <Link
               href="/"
               className="block text-indigo-500 underline hover:text-indigo-700 mb-2 text-center"
             >
               Go to home
-            </a>
+            </Link>
           </>
         )}
         <ActionButton

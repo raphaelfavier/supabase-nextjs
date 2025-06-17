@@ -41,7 +41,7 @@ export default function LoginPage() {
         } else {
           setSuccess("Magic link sent! Check your email.");
         }
-      } catch (err) {
+      } catch {
         setError("Failed to send magic link.");
       }
       setLoading(false);
@@ -62,7 +62,6 @@ export default function LoginPage() {
     }
     setLoading(false);
   };
-
 
   return (
     <div className="flex flex-col items-center sm:w-[400px] w-full mx-auto mt-8 p-6 border rounded-lg shadow">
